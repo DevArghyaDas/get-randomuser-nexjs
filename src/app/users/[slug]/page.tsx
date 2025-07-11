@@ -1,6 +1,5 @@
 import UserCard from "@/components/UserCard";
-import { UserData } from "@/lib/types";
-import axios from "axios";
+import getUserHook from "@/hooks/getUserHook";
 import { Metadata } from "next";
 
 export const generateMetadata = (): Metadata => {
@@ -16,39 +15,24 @@ const page = async ({ params }: { params: Params }) => {
 
   const baseUrl = process.env.NEXT_PUBLIC_API_URL as string;
 
-  if (parseInt(numberOfUsers) <= 30 && parseInt(numberOfUsers) > 0) {
-    const { data } = await axios.get(baseUrl, {
-      params: {
-        results: numberOfUsers,
-      },
-    });
+  const getData = await getUserHook(baseUrl, numberOfUsers);
 
-    if (data === null) {
-      console.log("null data");
-      return;
-    }
+  if (getData === undefined || getData.data === null) return null;
 
-    const resData = data.results as UserData[];
+  const { data, success } = getData;
 
+  if (success === true) {
     return (
       <>
         <div
           className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-5
-         px-5">
-          {resData.map((info, index) => (
+        px-5">
+          {data.map((info, index) => (
             <UserCard
               info={info}
               key={index}
             />
           ))}
-        </div>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <div className="h-[70lvh] grid place-items-center">
-          <div className="text-3xl">You can&apos;t beat the Matrix 😎</div>
         </div>
       </>
     );

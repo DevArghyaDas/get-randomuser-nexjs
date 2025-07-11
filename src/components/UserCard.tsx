@@ -1,6 +1,7 @@
 "use client";
 import { UserData } from "@/lib/types";
-import { Card, CardBody, Image } from "@heroui/react";
+import { Card, CardBody } from "@heroui/react";
+import Image from "next/image";
 
 const UserCard = ({ info }: { info: UserData }) => (
   <Card className="min-w-[300px] lg:min-w-full max-w-md shadow-lg border border-default-300">

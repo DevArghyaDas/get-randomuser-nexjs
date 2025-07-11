@@ -1,7 +1,6 @@
 "use client";
 import { UserData } from "@/lib/types";
-import { Card, CardBody } from "@heroui/react";
-import Image from "next/image";
+import { Card, CardBody, Image } from "@heroui/react";
 
 const UserCard = ({ info }: { info: UserData }) => (
   <Card className="min-w-[300px] lg:min-w-full max-w-md shadow-lg border border-default-300">
@@ -10,10 +9,9 @@ const UserCard = ({ info }: { info: UserData }) => (
         <Image
           alt="next-img"
           src={info.picture.large}
-          height={300}
-          width={300}
-          // priority={true}
-          className="rounded-full outline-primary-500 outline-offset-2 outline-4 h-40 w-40"
+          height={150}
+          width={150}
+          className="rounded-full outline-[3px] outline-primary-500 outline-offset-2"
         />
       </div>
       <div className="flex flex-col items-center justify-center gap-3">
